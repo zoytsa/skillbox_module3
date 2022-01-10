@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SvgAssetsWidget(),
             SvgWidget(),
             const Text(
               'You have pushed the button this many times:',
@@ -81,6 +82,22 @@ class SvgWidget extends StatelessWidget {
         placeholderBuilder: (BuildContext context) => Container(
             padding: const EdgeInsets.all(30.0),
             child: const CircularProgressIndicator()),
+      ),
+    );
+  }
+}
+
+class SvgAssetsWidget extends StatelessWidget {
+  const SvgAssetsWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String fileName = "assets/jump_button.svg";
+    return Container(
+      child: SvgPicture.asset(
+        fileName,
+        color: Colors.blueGrey[200],
+        matchTextDirection: true,
       ),
     );
   }
