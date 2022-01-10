@@ -1,4 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
@@ -44,33 +48,27 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          EnlargeCaruselWidget(images: [
             SvgAssetsWidget(),
-            SvgWidget(),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+            SvgNetworkWidget(),
+          ]),
+          // SvgAssetsWidget(),
+          // SvgWidget(),
+          const Text(
+            'This is a carusel slider...',
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
-class SvgWidget extends StatelessWidget {
-  const SvgWidget({Key? key}) : super(key: key);
+class SvgNetworkWidget extends StatelessWidget {
+  const SvgNetworkWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +96,29 @@ class SvgAssetsWidget extends StatelessWidget {
         fileName,
         color: Colors.blueGrey[200],
         matchTextDirection: true,
+      ),
+    );
+  }
+}
+
+class EnlargeCaruselWidget extends StatelessWidget {
+  final List<Widget> images;
+
+  const EnlargeCaruselWidget({Key? key, required this.images})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: CarouselSlider(
+        options: CarouselOptions(
+          autoPlay: false,
+          aspectRatio: 2.0,
+          enlargeCenterPage: true,
+          enlargeStrategy: CenterPageEnlargeStrategy.height,
+          scrollDirection: Axis.horizontal,
+        ),
+        items: images,
       ),
     );
   }
