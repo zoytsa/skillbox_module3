@@ -34,14 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: const <Widget>[
           EnlargeCaruselWidget(images: [
             SvgAssetsWidget(),
             SvgNetworkWidget(),
           ]),
           // SvgAssetsWidget(),
           // SvgWidget(),
-          const Text(
+          Text(
             'This is a carusel slider...',
           ),
         ],
@@ -74,13 +66,11 @@ class SvgNetworkWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String uriName =
         "http://upload.wikimedia.org/wikipedia/commons/0/02/SVG_logo.svg";
-    return Container(
-      child: SvgPicture.network(
-        uriName,
-        placeholderBuilder: (BuildContext context) => Container(
-            padding: const EdgeInsets.all(30.0),
-            child: const CircularProgressIndicator()),
-      ),
+    return SvgPicture.network(
+      uriName,
+      placeholderBuilder: (BuildContext context) => Container(
+          padding: const EdgeInsets.all(30.0),
+          child: const CircularProgressIndicator()),
     );
   }
 }
@@ -91,12 +81,10 @@ class SvgAssetsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String fileName = "assets/jump_button.svg";
-    return Container(
-      child: SvgPicture.asset(
-        fileName,
-        color: Colors.blueGrey[200],
-        matchTextDirection: true,
-      ),
+    return SvgPicture.asset(
+      fileName,
+      color: Colors.blueGrey[200],
+      matchTextDirection: true,
     );
   }
 }
@@ -109,17 +97,15 @@ class EnlargeCaruselWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CarouselSlider(
-        options: CarouselOptions(
-          autoPlay: false,
-          aspectRatio: 2.0,
-          enlargeCenterPage: true,
-          enlargeStrategy: CenterPageEnlargeStrategy.height,
-          scrollDirection: Axis.horizontal,
-        ),
-        items: images,
+    return CarouselSlider(
+      options: CarouselOptions(
+        autoPlay: false,
+        aspectRatio: 2.0,
+        enlargeCenterPage: true,
+        enlargeStrategy: CenterPageEnlargeStrategy.height,
+        scrollDirection: Axis.horizontal,
       ),
+      items: images,
     );
   }
 }
